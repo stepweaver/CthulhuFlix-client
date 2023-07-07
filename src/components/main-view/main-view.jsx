@@ -6,38 +6,19 @@ export const MainView = () => {
   const [movies, setMovies] = useState([
     {
       id: 1,
-      title: "Eloquent JavaScript",
+      title: "The Batman",
+      description: 'When a sadistic serial killer begins murdering key political figures in Gotham, Batman is forced to investigate the city\'s hidden corruption and question his family\'s involvement.',
+      releaseYear: '2022',
+      rating: 'PG-13',
+      genre: {
+        name: 'Action',
+        description: 'Action film is a genre in which the protagonist is thrust into a series of events that typically involve violence and physical feats.'
+      },
+      director: {
+        name: 'Matt Reeves',
+      },
       imageURL:
-        "https://images-na.ssl-images-amazon.com/images/I/51InjRPaF7L._SX377_BO1,204,203,200_.jpg",
-      author: "Marijn Haverbeke"
-    },
-    {
-      id: 2,
-      title: "Mastering JavaScript Functional Programming",
-      imageURL:
-        "https://images-na.ssl-images-amazon.com/images/I/51WAikRq37L._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
-      author: "Federico Kereki"
-    },
-    {
-      id: 3,
-      title: "JavaScript: The Good Parts",
-      imageURL:
-        "https://images-na.ssl-images-amazon.com/images/I/5131OWtQRaL._SX381_BO1,204,203,200_.jpg",
-      author: "Douglas Crockford"
-    },
-    {
-      id: 4,
-      title: "JavaScript: The Definitive Guide",
-      imageURL:
-        "https://images-na.ssl-images-amazon.com/images/I/51HbNW6RzhL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
-      author: "David Flanagan"
-    },
-    {
-      id: 5,
-      title: "The Road to React",
-      imageURL:
-        "https://images-na.ssl-images-amazon.com/images/I/41MBLi5a4jL._SX384_BO1,204,203,200_.jpg",
-      author: "Robin Wieruch"
+        "https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg"
     }
   ]);
 
