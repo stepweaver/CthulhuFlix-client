@@ -12,10 +12,14 @@ export const MainView = () => {
       .then((data) => {
         const moviesFromApi = data.docs.map((doc) => {
           return {
-            id: doc.key,
+            _id: doc.key,
             title: doc.title,
-            image:`https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`,
-            author: doc.author_name?.[0]
+            description: doc.description,
+            releaseYear: doc.releaseYear,
+            rating: doc.rating,
+            imageURL:`https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`,
+            director: doc.director?.name[0],
+            genre: doc.genre?.name[0]
           };
         });
 
