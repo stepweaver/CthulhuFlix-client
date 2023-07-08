@@ -4,7 +4,7 @@ export const MovieView = ({ movie, onBackClick }) => {
       <div>
         <img
           className='movie-poster'
-          src={movie.imageURL}
+          src={movie.image}
           alt={`Poster for ${movie.title}`}
         />
       </div>
@@ -12,14 +12,14 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span className='movie-title'>{movie.title}</span>
       </h2>
       <h5>
-        <span>{movie.releaseYear} | {movie.genre.name}</span>
+        <span>{movie.releaseYear} | {movie.genre?.name}</span>
       </h5>
       <p>
         {movie.description}
       </p>
       <div>
         <span>Director: </span>
-        <span>{movie.director.name}</span>
+        <span>{movie.director?.name}</span>
       </div>
       <button onClick={onBackClick}>Back</button>
     </div>
