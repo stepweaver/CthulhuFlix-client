@@ -4,7 +4,7 @@ import { MovieView } from '../movie-view/movie-view';
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
-  const [selectedGenre, setSelectedGenre] = useState('');
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
     fetch('https://cthulhuflix-2f8f4cc270b5.herokuapp.com/movies')
@@ -34,17 +34,11 @@ export const MainView = () => {
       });
   }, []);
 
-  const [selectedMovie, setSelectedMovie] = useState(null);
 
   if (selectedMovie) {
     return (
-      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} movies={movies} />
+      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
     );
-  }
-
-  let filteredMovies = movies;
-  if (selectedGenre) {
-    filteredMovies = movies.filter((movie) => movie.Genre.Name === selectedGenre);
   }
 
   if (movies.length === 0) {
@@ -53,20 +47,17 @@ export const MainView = () => {
 
   return (
     <div>
-      {filteredMovies.length === 0 ? (
-        <div>No movies found with the selected genre.</div>
-      ) : (
-        filteredMovies.map((movie) => (
-          <MovieCard
-            key={movie.id}
-            movie={movie}
-            onMovieClick={(newSelectedMovie) => {
-              setSelectedMovie(newSelectedMovie);
-              setSelectedGenre(newSelectedMovie.Genre.Name);
-            }}
-          />
-        ))
-      )}
+      {movies.map((movie) => (
+        <MovieCard
+          key={movie.id}
+          movie={movie}
+          onMovieClick={(newSelectedMovie) => {
+            setSelectedMovie(newSelectedMovie);
+          }}
+        />
+      ))}
     </div>
   );
 };
+
+// TODO: Display list of similar movies in MovieView
