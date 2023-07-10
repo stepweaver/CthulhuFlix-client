@@ -4,28 +4,36 @@ import { MovieView } from '../movie-view/movie-view';
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
-    fetch('https://openlibrary.org/search.json?q=star+wars')
+    fetch('https://cthulhuflix-2f8f4cc270b5.herokuapp.com/movies')
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = data.docs.map((doc) => {
+        const moviesFromApi = data.map((doc) => {
           return {
-            _id: doc.key,
-            title: doc.title,
-            description: doc.description,
+            id: doc._id,
+            Title: doc.Title,
+            Description: doc.Description,
             releaseYear: doc.releaseYear,
-            rating: doc.rating,
-            imageURL:`https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`,
-            director: doc.director?.name[0],
-            genre: doc.genre?.name[0]
+            Rating: doc.Rating,
+            Genre: {
+              Name: doc.Genre.Name,
+              Description: doc.Genre.Description
+            },
+            Director: {
+              Name: doc.Director.Name,
+              Bio: doc.Director.Bio
+            },
+            imageURL: doc.imageURL,
+            Actors: doc.Actors
           };
         });
 
         setMovies(moviesFromApi);
       });
   }, []);
+
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   if (selectedMovie) {
     return (
