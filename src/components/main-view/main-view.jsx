@@ -4,6 +4,7 @@ import { MovieView } from '../movie-view/movie-view';
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
+  const [selectedGenre, setSelectedGenre] = useState('');
 
   useEffect(() => {
     fetch('https://cthulhuflix-2f8f4cc270b5.herokuapp.com/movies')
@@ -37,8 +38,13 @@ export const MainView = () => {
 
   if (selectedMovie) {
     return (
-      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} movies={movies} />
     );
+  }
+
+  let filteredMovies = movies;
+  if (selectedGenre) {
+    filteredMovies = movies.filter((movie) => movie.Genre.Name === selectedGenre);
   }
 
   if (movies.length === 0) {
@@ -47,15 +53,20 @@ export const MainView = () => {
 
   return (
     <div>
-      {movies.map((movie) => (
-        <MovieCard
-          key={movie.id}
-          movie={movie}
-          onMovieClick={(newSelectedMovie) => {
-            setSelectedMovie(newSelectedMovie);
-          }}
-        />
-      ))}
+      {filteredMovies.length === 0 ? (
+        <div>No movies found with the selected genre.</div>
+      ) : (
+        filteredMovies.map((movie) => (
+          <MovieCard
+            key={movie.id}
+            movie={movie}
+            onMovieClick={(newSelectedMovie) => {
+              setSelectedMovie(newSelectedMovie);
+              setSelectedGenre(newSelectedMovie.Genre.Name);
+            }}
+          />
+        ))
+      )}
     </div>
   );
 };
