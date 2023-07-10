@@ -9,12 +9,23 @@ export const MainView = () => {
     fetch('https://cthulhuflix-2f8f4cc270b5.herokuapp.com/movies')
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = data.docs.map((doc) => {
+        const moviesFromApi = data.map((doc) => {
           return {
-            id: doc.key,
-            title: doc.title,
-            image: `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`,
-            author: doc.author_name?.[0]
+            id: doc._id,
+            Title: doc.Title,
+            Description: doc.Description,
+            releaseYear: doc.releaseYear,
+            Rating: doc.Rating,
+            Genre: {
+              Name: doc.Genre.Name,
+              Description: doc.Genre.Description
+            },
+            Director: {
+              Name: doc.Director.Name,
+              Bio: doc.Director.Bio
+            },
+            imageURL: doc.imageURL,
+            Actors: doc.Actors
           };
         });
 
