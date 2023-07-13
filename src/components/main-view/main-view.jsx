@@ -7,37 +7,53 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
-    fetch('https://cthulhuflix-2f8f4cc270b5.herokuapp.com/movies')
+    if (!token) {
+      return;
+    }
+
+    fetch('https://cthulhuflix-2f8f4cc270b5.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = data.map((doc) => {
-          return {
-            id: doc._id,
-            Title: doc.Title,
-            Description: doc.Description,
-            releaseYear: doc.releaseYear,
-            Rating: doc.Rating,
-            Genre: {
-              Name: doc.Genre.Name,
-              Description: doc.Genre.Description
-            },
-            Director: {
-              Name: doc.Director.Name,
-              Bio: doc.Director.Bio
-            },
-            imageURL: doc.imageURL,
-            Actors: doc.Actors
-          };
-        });
-
-        setMovies(moviesFromApi);
+        console.log(data);
       });
-  }, []);
+      //   const moviesFromApi = data.map((doc) => {
+      //     return {
+      //       id: doc._id,
+      //       Title: doc.Title,
+      //       Description: doc.Description,
+      //       releaseYear: doc.releaseYear,
+      //       Rating: doc.Rating,
+      //       Genre: {
+      //         Name: doc.Genre.Name,
+      //         Description: doc.Genre.Description
+      //       },
+      //       Director: {
+      //         Name: doc.Director.Name,
+      //         Bio: doc.Director.Bio
+      //       },
+      //       imageURL: doc.imageURL,
+      //       Actors: doc.Actors
+      //     };
+      //   });
+
+      //   setMovies(moviesFromApi);
+      // });
+  }, [token]);
 
   if (!user) {
-    return <LoginView onLoggedIn={(user) => setUser(user)} />;
+    return (
+      <LoginView
+        onLoggedIn={(user, token) => {
+          setUser(user);
+          setToken(token);
+        }}
+      />
+    );
   }
 
 
@@ -62,7 +78,7 @@ export const MainView = () => {
           }}
         />
       ))}
-      <button onClick={() => { setUser(null); }}>Logout</button>
+      <button onClick={() => { setUser(null); setToken(null) }}>Logout</button>
     </div>
   );
 };
