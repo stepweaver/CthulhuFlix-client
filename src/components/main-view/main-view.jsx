@@ -15,37 +15,40 @@ export const MainView = () => {
     if (!token) {
       return;
     }
-
+  
     fetch('https://cthulhuflix-2f8f4cc270b5.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => response.json())
       .then((movies) => {
         console.log(movies);
+      
+        const moviesFromApi = movies.map((doc) => {
+          return {
+            id: doc._id,
+            Title: doc.Title,
+            Description: doc.Description,
+            releaseYear: doc.releaseYear,
+            Rating: doc.Rating,
+            Genre: {
+              Name: doc.Genre.Name,
+              Description: doc.Genre.Description
+            },
+            Director: {
+              Name: doc.Director.Name,
+              Bio: doc.Director.Bio
+            },
+            imageURL: doc.imageURL,
+            Actors: doc.Actors
+          };
+        });
+  
+        setMovies(moviesFromApi);
+      })
+      .catch((err) => {
+        console.error('Error fetching movies: ', err);
       });
-      //   const moviesFromApi = data.map((doc) => {
-      //     return {
-      //       id: doc._id,
-      //       Title: doc.Title,
-      //       Description: doc.Description,
-      //       releaseYear: doc.releaseYear,
-      //       Rating: doc.Rating,
-      //       Genre: {
-      //         Name: doc.Genre.Name,
-      //         Description: doc.Genre.Description
-      //       },
-      //       Director: {
-      //         Name: doc.Director.Name,
-      //         Bio: doc.Director.Bio
-      //       },
-      //       imageURL: doc.imageURL,
-      //       Actors: doc.Actors
-      //     };
-      //   });
-
-      //   setMovies(moviesFromApi);
-      // });
-  }, [token]);
+  }, [token]);  
 
   if (!user) {
     return (
