@@ -3,7 +3,7 @@ import { useState } from 'react';
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  
+
   const handleSubmit = (event) => {
     // this prevents the default behavior of the form which is to reload the entire page
     event.preventDefault();
@@ -33,6 +33,8 @@ export const LoginView = ({ onLoggedIn }) => {
           type='text'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
+          minlength='3'
         />
       </label>
       <label>
@@ -41,6 +43,8 @@ export const LoginView = ({ onLoggedIn }) => {
           type='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
+          minlength='6'
         />
       </label>
       <button type='submit'>
