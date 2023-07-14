@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
@@ -97,6 +97,13 @@ export const MainView = () => {
               />
             </Col>
           ))}
+          <Button onClick={() => {
+            setUser(null);
+            setToken(null);
+            localStorage.clear(); }}
+          >
+            Logout
+          </Button>
         </>
       )}
     </Row>
