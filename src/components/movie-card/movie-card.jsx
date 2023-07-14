@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 
-import './movie-card.scss';
-
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
     <Card className='h-100' onClick={() => onMovieClick(movie)} variant='link' style={{ cursor: 'pointer' }} >
