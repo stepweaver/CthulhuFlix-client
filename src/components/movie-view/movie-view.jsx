@@ -5,7 +5,7 @@ export const MovieView = ({ movie, onBackClick }) => {
     <div>
       <div>
         <img 
-          className='movie-poster'
+          className='movie-poster w-100'
           src={movie.imageURL}
           alt={`Poster for ${movie.Title}`}
         />
