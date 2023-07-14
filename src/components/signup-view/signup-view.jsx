@@ -36,7 +36,7 @@ export const SignupView = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group className='mb-3' controlId='formUsername'>
+      <Form.Group className='mb-3' controlId='signupUsername'>
         <Form.Label>Username</Form.Label>
         <Form.Control
           type='text'
@@ -47,7 +47,7 @@ export const SignupView = () => {
           placeholder='Username'
           />
       </Form.Group>
-      <Form.Group className='mb-3' controlId='formPassword'>
+      <Form.Group className='mb-3' controlId='signupPassword'>
         <Form.Label>Password</Form.Label>
         <Form.Control
           type='password'
@@ -58,7 +58,7 @@ export const SignupView = () => {
           placeholder='Password'
         />
       </Form.Group>
-      <Form.Group className='mb-3' controlId='formEmail'>
+      <Form.Group className='mb-3' controlId='signupEmail'>
         <Form.Label>Email address</Form.Label>
         <Form.Control
           type='email'
@@ -71,7 +71,7 @@ export const SignupView = () => {
           We'll never share your email with anyone else.
         </Form.Text>
       </Form.Group>
-      <Form.Group className='mb-3' controlId='formBirthday'>
+      <Form.Group className='mb-3' controlId='signupBirthday'>
         <Form.Label>Birthday</Form.Label>
         <Form.Control
           type='date'
