@@ -77,9 +77,8 @@ export const MainView = () => {
           <SignupView />
         </Col>
       ) : selectedMovie ? (
-        <Col md={8} style={{ border: '1px solid black' }}>
-          <MovieView 
-            style={{ border: '1px solid green' }}
+        <Col md={8}>
+          <MovieView
             movie={selectedMovie} 
             onBackClick={() => setSelectedMovie(null)} 
           />
