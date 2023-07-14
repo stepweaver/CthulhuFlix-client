@@ -1,5 +1,3 @@
-$color: steelblue;
-
-.cthulhu-flix {
-  color: $color;
-}
+@import '~bootstrap/scss/bootstrap.scss';
+$primary: SeaGreen;
+$body-bg: Honeydew;
