@@ -7,12 +7,17 @@ import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
 
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem('user'));
-  const storedToken = localStorage.getItem('token');
-  const [user, setUser] = useState(storedUser ? storedUser : null);
-  const [token, setToken] = useState(storedToken ? storedToken : null);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const storedToken = localStorage.getItem('token');
+    setUser(storedUser || null);
+    setToken(storedToken || null);
+  }, []);
 
   useEffect(() => {
     if (!token) {
@@ -69,22 +74,20 @@ export const MainView = () => {
   }
 
   return (
-    <Row className='justify-content-md-center'> 
+    <Row className='justify-content-md-center'>
       {!user ? (
         <Col md={5}>
-          <LoginView onLoggedIn={(user) => setUser(user)} />
+          <LoginView />
           or
           <SignupView />
         </Col>
       ) : selectedMovie ? (
         <Col md={8}>
           <MovieView
-            movie={selectedMovie} 
-            onBackClick={() => setSelectedMovie(null)} 
+            movie={selectedMovie}
+            onBackClick={() => setSelectedMovie(null)}
           />
         </Col>
-      ) : movies.length === 0 ? (
-        <div>The list is empty!</div>
       ) : (
         <>
           {movies.map((movie) => (
@@ -97,10 +100,12 @@ export const MainView = () => {
               />
             </Col>
           ))}
-          <Button onClick={() => {
-            setUser(null);
-            setToken(null);
-            localStorage.clear(); }}
+          <Button
+            onClick={() => {
+              setUser(null);
+              setToken(null);
+              localStorage.clear();
+            }}
           >
             Logout
           </Button>
