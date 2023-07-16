@@ -58,6 +58,12 @@ export const MainView = () => {
       });
   }, [token]);
 
+  const handleLogout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.clear();
+  };
+
   if (selectedMovie) {
     return (
       <Col md={8}>
@@ -77,16 +83,12 @@ export const MainView = () => {
     <Row className='justify-content-md-center'>
       {!user ? (
         <Col md={5}>
-          <LoginView />
+          <LoginView onLoggedIn={(user, token) => {
+            setUser(user);
+            setToken(token);
+          }} />
           or
           <SignupView />
-        </Col>
-      ) : selectedMovie ? (
-        <Col md={8}>
-          <MovieView
-            movie={selectedMovie}
-            onBackClick={() => setSelectedMovie(null)}
-          />
         </Col>
       ) : (
         <>
@@ -100,13 +102,7 @@ export const MainView = () => {
               />
             </Col>
           ))}
-          <Button
-            onClick={() => {
-              setUser(null);
-              setToken(null);
-              localStorage.clear();
-            }}
-          >
+          <Button onClick={handleLogout}>
             Logout
           </Button>
         </>
