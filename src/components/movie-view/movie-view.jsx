@@ -1,6 +1,18 @@
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
+
 import './movie-view.scss';
 
-export const MovieView = ({ movie, onBackClick }) => {
+export const MovieView = ({ movies }) => {
+  const { movieId } = useParams();
+  const decodedMovieId = decodeURIComponent(movieId);
+
+  const movie = movies.find((m) => m.id === decodedMovieId);
+
+  if (!movie) {
+    return <div>Loading...</div>
+  }
+
   return (
     <div>
       <div>
@@ -20,13 +32,14 @@ export const MovieView = ({ movie, onBackClick }) => {
         <p>Actors: {movie.Actors.join(', ')}</p>
         <p>Director: {movie.Director?.Name}</p>
       </div>
-      <button
-        className='back-button'
-        onClick={onBackClick}
-        style={{ cursor: 'pointer' }}
-      >
-        Back
-      </button>
+      <Link to={'/'}>
+        <button
+          className='back-button'
+          style={{ cursor: 'pointer' }}
+        >
+          Back
+        </button>
+      </Link>
     </div>
   );
 };
