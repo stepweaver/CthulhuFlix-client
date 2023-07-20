@@ -6,7 +6,7 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
-import { Route } from 'react-router';
+import { NavigationBar } from '../navigation-bar/navigation-bar';
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -55,6 +55,12 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
+      <NavigationBar
+        user={user}
+        onLoggedOut={() => {
+          setUser(null);
+        }}
+      />
       <Row className='justify-content-md-center'>
         <Routes>
           <Route
