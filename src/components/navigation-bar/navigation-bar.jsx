@@ -3,8 +3,8 @@ import { Link } from 'react-bootstrap';
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
   return (
-    <Navbar bg='dark' expand='lg'>
-      <Container>
+    <Navbar bg='transparent' expand='lg'>
+      <Container fluid>
         <Navbar.Brand as={Link} to='/'>
           Cthulhuflix
         </Navbar.Brand>
